@@ -1,4 +1,3 @@
-#include <Adafruit_GFX.h>
 #include <Arduino.h>
 #include <ArduinoJson.h>
 #include <HTTPClient.h>
