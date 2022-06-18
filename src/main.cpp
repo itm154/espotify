@@ -8,33 +8,13 @@
 #include <Wire.h>
 
 // Wifi credentials
-const char* ssid = "TINO'S_2.4GHz@unifi";
-const char* password = "011114130297";
+const char* ssid = "__SSID__";
+const char* password = "__PASSWORD__";
 
 // Spotify API credentials
-String client_id = "da6c8c1eee91408a8a7e575c78539536";
+String client_id = "__CLIENT-ID__";
 String redirect = "https%3A%2F%2Fhttpbin.org%2Fanything";
-String cookie =
-    "sp_t=170877b241c30e36cd2d367c87745201; "
-    "__Host-device_id=AQAfJeTVzyH31v_"
-    "slCJJPXhw2c8A4LNc1TNlsxo44qK2Y72UFThRJltP2vRVFAbjnn_XeZP_"
-    "HKvYmd7sKiciWHzPfDUOiFmjN24; "
-    "OptanonAlertBoxClosed=2022-04-02T10:30:28.858Z; "
-    "sp_dc="
-    "AQBH3IcFN1TV71NIZfaTErygtpKk61eFhWAtac9FHsZlpJRC8evbMWZHkt4goDydTD7TtocxaV"
-    "asiLM3U-nW_ZI1QvwLze5BzHEYSVr_vGNYtsuIGZu6X-w7y93khQJcd-_1usacQJGb7RC-"
-    "za2IZyYlMcUJPP3s; sp_key=d7e58792-892d-47dc-994e-c32deeef14c6; "
-    "sp_m=my-en; inapptestgroup=; sp_landing=https://www.spotify.com/my-en/; "
-    "OptanonConsent=isIABGlobal=false&datestamp=Sat+Jun+18+2022+13:38:31+GMT+"
-    "0800+(Malaysia+Time)&version=6.26.0&hosts=&landingPath=NotLandingPage&"
-    "groups=s00:1,f00:1,m00:1,t00:1,i00:1,f02:1,m02:1,t02:1&AwaitingReconsent="
-    "false&geolocation=MY;13; "
-    "__HOST-sp_fid=50486bcb-e3eb-4067-a74e-3740516be994; sp_tr=true; "
-    "__Host-sp_csrf_sid="
-    "b48918708927c7142c183d0af03b0409864bf3cf68495766e51da390b11abb59; "
-    "csrf_token=AQB-"
-    "fHcsOl26PNdSUbMpLExulOAjinPiVqQt2HWnitKZTcbv0dvsFfxvkXswjctJXWiJYBCEi0p1Si"
-    "Dc2cDuNQ7CTB7eDsEucCaL6Oau1T74ZsHi";
+String cookie = "__COOKIE__";
 
 // Song Info
 long current = 0, duration = 0;
