@@ -1,8 +1,8 @@
 #include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
 #include <Arduino.h>
 #include <ArduinoJson.h>
 #include <HTTPClient.h>
+#include <SSD1306Wire.h>
 #include <WiFi.h>
 #include <WiFiMulti.h>
 #include <Wire.h>
@@ -50,8 +50,9 @@ String token = "";
 WiFiMulti wifimulti;
 
 // Display
-Adafruit_SSD1306 display(128, 64, &Wire, -1);
-bool dim = true;
+// SDA 21
+// SCL 22
+SSD1306Wire display(0x3c, 21, 22);
 
 void getToken() {
   HTTPClient http;
@@ -119,15 +120,30 @@ void getPlayer() {
 }
 
 void updateScreen() {
-  display.clearDisplay();
+  display.clear();
+  display.setTextAlignment(TEXT_ALIGN_CENTER);
 
-  // Song Title
-  display.setCursor(0, 0);
-  display.println(title);
+  display.drawString(64, 0, title);
+  display.drawString(64, 10, artists);
+  display.drawString(64, 20, album);
+  display.drawString(64, 40, "Vol. " + String(volume) + "%");
 
-  display.println(artists);
+  int m = duration / 60000;
+  int s = (duration % 60000) / 1000;
 
-  display.println(album);
+  int mC = current / 60000;
+  int sC = (current % 60000) / 1000;
+  int progress = map(current, 0, duration, 0, 100);
+  display.drawProgressBar(0, 55, 127, 8, progress);
+  Serial.println(current);
+
+  display.setTextAlignment(TEXT_ALIGN_LEFT);
+  display.drawString(0, 40,
+                     String(mC) + ":" + (sC < 10 ? "0" : "") + String(sC));
+
+  display.setTextAlignment(TEXT_ALIGN_RIGHT);
+  display.drawString(128, 40,
+                     String(m) + ":" + (s < 10 ? "0" : "") + String(s));
 
   display.display();
 }
@@ -137,37 +153,19 @@ void setup() {
   Serial.println("Starting device...");
   wifimulti.addAP(ssid, password);
 
-  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
-    Serial.println(F("Allocation Failed"));
-    for (;;)
-      ;
-  }
+  display.init();
+  display.flipScreenVertically();
+  display.setFont(ArialMT_Plain_10);
 
-  Serial.println("Conneting to WiFi");
-
-  display.dim(dim);
+  display.drawString(0, 0, "Connecting to Wifi...");
   display.display();
-  delay(1000);
-
-  display.clearDisplay();
-
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.setCursor(0, 0);
-  display.print("Connecting...");
-  display.display();
-  delay(1000);
-  display.clearDisplay();
-  display.display();
-
+  Serial.println("Connecting to WiFi");
   while ((wifimulti.run() != WL_CONNECTED)) {
     Serial.print(".");
   }
-
   Serial.println("Connected to WiFi");
-  display.print("Connected to Wifi");
-  display.display();
-  delay(3000);
+  display.clear();
+  delay(1000);
 
   getToken();
 }
