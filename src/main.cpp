@@ -1,8 +1,8 @@
 #include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
 #include <Arduino.h>
 #include <ArduinoJson.h>
 #include <HTTPClient.h>
+#include <SSD1306Wire.h>
 #include <WiFi.h>
 #include <WiFiMulti.h>
 #include <Wire.h>
@@ -50,8 +50,9 @@ String token = "";
 WiFiMulti wifimulti;
 
 // Display
-Adafruit_SSD1306 display(128, 64, &Wire, -1);
-bool dim = true;
+int SDA = 21;
+int SCL = 22;
+SSD1306Wire display(0x3c, SDA, SCL);
 
 void getToken() {
   HTTPClient http;
@@ -118,56 +119,20 @@ void getPlayer() {
   http.end();
 }
 
-void updateScreen() {
-  display.clearDisplay();
-
-  // Song Title
-  display.setCursor(0, 0);
-  display.println(title);
-
-  display.println(artists);
-
-  display.println(album);
-
-  display.display();
-}
+void updateScreen() {}
 
 void setup() {
   Serial.begin(115200);
   Serial.println("Starting device...");
   wifimulti.addAP(ssid, password);
 
-  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
-    Serial.println(F("Allocation Failed"));
-    for (;;)
-      ;
-  }
-
   Serial.println("Conneting to WiFi");
-
-  display.dim(dim);
-  display.display();
-  delay(1000);
-
-  display.clearDisplay();
-
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.setCursor(0, 0);
-  display.print("Connecting...");
-  display.display();
-  delay(1000);
-  display.clearDisplay();
-  display.display();
 
   while ((wifimulti.run() != WL_CONNECTED)) {
     Serial.print(".");
   }
 
   Serial.println("Connected to WiFi");
-  display.print("Connected to Wifi");
-  display.display();
-  delay(3000);
 
   getToken();
 }
