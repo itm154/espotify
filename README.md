@@ -60,4 +60,4 @@ Feel free to contribute if you can improve on it
 #### Known issues
 
 - Title/Artist/Artist which is in another language (e.g Japanese) doesn't display anything
-- Long Title/Artist/Artist goes out of the displat (idk how to make it scroll)
+- Long Title/Artist/Artist goes out of the display (idk how to make it scroll)
