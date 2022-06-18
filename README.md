@@ -21,7 +21,7 @@ All Contributions are welcome!
 - Visit Spotify Dashboard [`https://developer.spotify.com/dashboard/login`](https://developer.spotify.com/dashboard/login)
 - [`Create an app`](https://developer.spotify.com/documentation/general/guides/authorization/app-settings/)
 - Add Redirect URI http://httpbin.org/anything & Save in `Edit Settings`
-  ![image](images\1.png "image")
+  ![1](https://user-images.githubusercontent.com/67090166/174447856-40982c11-f922-4e62-bbbd-740d192de174.png)
 
 ### How to authenticate application
 
@@ -30,9 +30,11 @@ All Contributions are welcome!
   `https://accounts.spotify.com/authorize?response_type=token&redirect_uri=https%3A%2F%2Fhttpbin.org%2Fanything&client_id={CLIENTID}&scope=user-read-playback-state+user-read-playback-position+user-modify-playback-state&state=cryq3`
 - Hit enter and it should redirect to the specified URI with and Access Token on the URL
 - In Chrome's Developer tools window, you should see something like this
-  ![image](images\2.png "image")
+  ![2](https://user-images.githubusercontent.com/67090166/174447880-2312405c-2363-4c65-b9a3-9152224f7cb0.png)
+
 - Click on the one with authorize, click on headers, scroll down until you see `cookie:`, right click and copy value
-  ![image](images\3.png "image")
+  <img width="594" alt="3" src="https://user-images.githubusercontent.com/67090166/174447921-b421e2f6-462c-404e-a4aa-1d472e3e190c.png">
+
 
 ### How to use
 
@@ -42,7 +44,8 @@ All Contributions are welcome!
 - In `platformio.ini`, configure the upload port (default is `COM4`)
 - Configure the settings in `src/main.cpp`
 - Replace all the required fields (dont delete the "")
-  ![image](images\4.png "image")
+  ![4](https://user-images.githubusercontent.com/67090166/174447925-84baac5b-6a37-4758-8d4c-dd93a411cb7f.png)
+
 
   - Get your clientID on your Spotify app's dashboard
   - Note: SSID is the name of your Wifi Network
