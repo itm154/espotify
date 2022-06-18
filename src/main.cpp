@@ -50,9 +50,9 @@ String token = "";
 WiFiMulti wifimulti;
 
 // Display
-int SDA = 21;
-int SCL = 22;
-SSD1306Wire display(0x3c, SDA, SCL);
+// SDA 21
+// SCL 22
+SSD1306Wire display(0x3c, 21, 22);
 
 void getToken() {
   HTTPClient http;
@@ -119,20 +119,51 @@ void getPlayer() {
   http.end();
 }
 
-void updateScreen() {}
+void updateScreen() {
+  display.clear();
+  display.setTextAlignment(TEXT_ALIGN_CENTER);
+
+  display.drawString(64, 0, title);
+  display.drawString(64, 10, artists);
+  display.drawString(64, 20, album);
+  display.drawString(64, 40, "Vol. " + String(volume));
+
+  int progress = ((current / 60000) / (duration / 60000) * 100);
+  display.drawProgressBar(0, 55, 127, 8, progress);
+
+  int mC = current / 60000;
+  int sC = (current % 60000) / 1000;
+  display.setTextAlignment(TEXT_ALIGN_LEFT);
+  display.drawString(0, 40,
+                     String(mC) + ":" + (sC < 10 ? "0" : "") + String(sC));
+
+  int m = duration / 60000;
+  int s = (duration % 60000) / 1000;
+  display.setTextAlignment(TEXT_ALIGN_RIGHT);
+  display.drawString(128, 40,
+                     String(m) + ":" + (s < 10 ? "0" : "") + String(s));
+
+  display.display();
+}
 
 void setup() {
   Serial.begin(115200);
   Serial.println("Starting device...");
   wifimulti.addAP(ssid, password);
 
-  Serial.println("Conneting to WiFi");
+  display.init();
+  display.flipScreenVertically();
+  display.setFont(ArialMT_Plain_10);
 
+  display.drawString(0, 0, "Connecting to Wifi...");
+  display.display();
+  Serial.println("Connecting to WiFi");
   while ((wifimulti.run() != WL_CONNECTED)) {
     Serial.print(".");
   }
-
   Serial.println("Connected to WiFi");
+  display.clear();
+  delay(1000);
 
   getToken();
 }
