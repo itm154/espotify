@@ -25,7 +25,7 @@ All Contributions are welcome!
 
 ### How to authenticate application
 
-- Open Chrome Developer Tools `Ctrl+Shift+I`, head to the networks tab and hit `Ctrl+r`
+- Open Chrome Developer Tools `Ctrl+Shift+I`, head to the networks tab and hit `Ctrl+R`
 - On the link below, add your clientID (replace and remove the curly brackets)
   `https://accounts.spotify.com/authorize?response_type=token&redirect_uri=https%3A%2F%2Fhttpbin.org%2Fanything&client_id={CLIENTID}&scope=user-read-playback-state+user-read-playback-position+user-modify-playback-state&state=cryq3`
 - Hit enter and it should redirect to the specified URI with and Access Token on the URL
