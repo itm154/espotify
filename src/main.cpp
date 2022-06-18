@@ -46,7 +46,10 @@ bool isActive, playing;
 bool isExpired = false;
 String token = "";
 
+// Wifi
 WiFiMulti wifimulti;
+
+// Display
 Adafruit_SSD1306 display(128, 64, &Wire, -1);
 bool dim = true;
 
@@ -144,7 +147,7 @@ void setup() {
 
   display.dim(dim);
   display.display();
-  delay(500);
+  delay(1000);
 
   display.clearDisplay();
 
@@ -153,7 +156,7 @@ void setup() {
   display.setCursor(0, 0);
   display.print("Connecting...");
   display.display();
-
+  delay(1000);
   display.clearDisplay();
   display.display();
 
