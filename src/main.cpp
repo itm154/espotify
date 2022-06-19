@@ -107,22 +107,32 @@ void updateScreen() {
   display.drawString(64, 20, album);
   display.drawString(64, 40, "Vol. " + String(volume) + "%");
 
-  int m = duration / 60000;
-  int s = (duration % 60000) / 1000;
+  // Duration calculation
+  int minute = duration / 60000;
+  int second = (duration % 60000) / 1000;
 
-  int mC = current / 60000;
-  int sC = (current % 60000) / 1000;
+  // Current position calculation
+  int minuteCurrent = current / 60000;
+  int secondCurrent = (current % 60000) / 1000;
+
   int progress = map(current, 0, duration, 0, 100);
-  display.drawProgressBar(0, 55, 127, 8, progress);
-  Serial.println(current);
 
+  // Progress Bar
+  display.drawProgressBar(0, 55, 127, 8, progress);
+  // Serial.println(progress);
+
+  // Current song position
   display.setTextAlignment(TEXT_ALIGN_LEFT);
   display.drawString(0, 40,
-                     String(mC) + ":" + (sC < 10 ? "0" : "") + String(sC));
+                     String(minuteCurrent) + ":" +
+                         (secondCurrent < 10 ? "0" : "") +
+                         String(secondCurrent));
 
+  // Duration of song
   display.setTextAlignment(TEXT_ALIGN_RIGHT);
-  display.drawString(128, 40,
-                     String(m) + ":" + (s < 10 ? "0" : "") + String(s));
+  display.drawString(
+      128, 40,
+      String(minute) + ":" + (second < 10 ? "0" : "") + String(second));
 
   display.display();
 }
