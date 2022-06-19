@@ -105,6 +105,7 @@ void updateScreen() {
   display.drawString(64, 0, title);
   display.drawString(64, 10, artists);
   display.drawString(64, 20, album);
+  display.drawString(64, 30, playing ? ">" : "ll");
   display.drawString(64, 40, "Vol. " + String(volume) + "%");
 
   // Duration calculation
@@ -115,6 +116,7 @@ void updateScreen() {
   int minuteCurrent = current / 60000;
   int secondCurrent = (current % 60000) / 1000;
 
+  // Progress Calculation
   int progress = map(current, 0, duration, 0, 100);
 
   // Progress Bar
